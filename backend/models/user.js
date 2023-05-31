@@ -18,9 +18,21 @@ const userSchema=new mongoose.Schema({
     type:String,
     default:null
   },
-  place:{
+  address:{
     type:String,
     default:null
+  },
+  about:{
+    type:String,
+    default:null
+  },
+  phone:{
+    type:Number,
+    default:null
+  },
+  is_active:{
+    type:Boolean,
+    default:false
   }
 });
 
