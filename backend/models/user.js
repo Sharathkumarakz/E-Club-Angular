@@ -30,10 +30,24 @@ const userSchema=new mongoose.Schema({
     type:Number,
     default:null
   },
-  is_active:{
+  isBlocked:{
     type:Boolean,
     default:false
-  }
+  },
+  clubs:[
+    {
+      clubName:{
+        type:String,
+        default:null
+      },
+      password:{
+        type:String,
+        default:null
+      }
+    }
+  ]
+
+  
 });
 
 module.exports=mongoose.model("User",userSchema);

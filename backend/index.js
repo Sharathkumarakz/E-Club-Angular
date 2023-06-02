@@ -36,5 +36,5 @@ mongoose.connect("mongodb://127.0.0.1:27017/E-Club",{
   const userRoute=require('./routes/userRoute');
   app.use("/",userRoute); 
 
-//   const adminRoute=require('./routes/adminRoute');
-//   app.use("/admin",adminRoute); 
+  const adminRoute=require('./routes/adminRoute');
+  app.use("/admin",adminRoute); 

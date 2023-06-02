@@ -9,7 +9,7 @@ const clubSchema=new mongoose.Schema({
         type:String,
         required:true
       },
-      place:{
+      address:{
         type:String,
         required:true
       },
@@ -41,8 +41,24 @@ const clubSchema=new mongoose.Schema({
         default:null
       },
       members: {
-        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
-        
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]        
+      },
+      about:{
+        type:String,
+        default:null
+      }
+      ,
+      cash:{
+        type:Number,
+        default:0
+      },
+      loss:{
+        type:Number,
+        default:0
+      },
+      isblacklisted: {
+        type:Boolean,
+        default:false    
       }
 });
 
