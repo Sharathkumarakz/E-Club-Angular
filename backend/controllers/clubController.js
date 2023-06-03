@@ -320,22 +320,20 @@ const deleteMembers = async (req, res, next) => {
 
 const editClubProfile = async (req, res, next) => {
   try {
-    console.log("eethi");
     const club = await Club.findOne({ _id: req.params.id })
     const clubnameFound = await Club.findOne({ clubName: req.body.clubName })
-    console.log("eethi");
     if (clubnameFound) {
       console.log("eethi");
       if (req.body.clubName === clubnameFound.clubName && clubnameFound.secretory.toString() === club.secretory.toString() && club.president.toString() === clubnameFound.president.toString() && clubnameFound.registerNo === club.registerNo) {
         console.log("nothinggg");
-        let update = await Club.updateOne({ _id: req.params.id }, { $set: { clubName: req.body.clubName, about: req.body.about, place: req.body.place, category: req.body.category, registerNo: req.body.regiterNo } })
+        let update = await Club.updateOne({ _id: req.params.id }, { $set: { clubName: req.body.clubName, about: req.body.about, place:req.body.place, category: req.body.category, registerNo: req.body.regiterNo ,} })
       } else {
         return res.status(401).send({
           message: "Club name is not available"
         });
       }
     } else {
-      let update = await Club.updateOne({ _id: req.params.id }, { $set: { clubName: req.body.clubName, about: req.body.about, place: req.body.place, category: req.body.category, registerNo: req.body.regiterNo } })
+      let update = await Club.updateOne({ _id: req.params.id }, { $set: { clubName: req.body.clubName, about: req.body.about, place:req.body.place, category: req.body.category, registerNo: req.body.regiterNo } })
     }
 
     const gettingClub = await Club.findOne({ _id: req.params.id })
@@ -405,48 +403,6 @@ const updateCommitee = async (req, res, next) => {
   }
 }
 
-const addEvent=async (req,res,next)=>{
-  try {
-    const cookie = req.cookies['jwt'];
-    const claims = jwt.verify(cookie, "TheSecretKey");
-     let clubData=await Club.findOne({_id:req.params.id})
-     if(claims._id.toString()===clubData.president.toString()){
-      const event = new Event({
-        clubName:clubData._id,
-         event:req.body.text,
-         auther:"-President"
-    })
-    const added = await event.save();
-    let events=await Event.find({clubName:clubData._id}).sort({date:1})
-    res.send(events);
-     }else{
-      const event = new Event({
-        clubName:clubData._id,
-         event:req.body.text,
-         auther:"-Secretory"
-    })
-    const added = await event.save();
-    let events=await Event.find({clubName:clubData._id}).sort({date:-1})
-    res.send(events);
-     }
-
-  } catch (error) {
-    return res.status(401).send({
-      message: "Unauthenticated"
-    });
-  }
-}
-
-const getEvents=async (req,res,next)=>{
-  try {
-    let events=await Event.find({clubName:req.params.id}).sort({date:-1})
-    res.send(events);
-  } catch (error) {
-    return res.status(401).send({
-      message: "Unauthenticated"
-    });
-  }
-}
 module.exports = {
 
   clubRegister,
@@ -463,6 +419,5 @@ module.exports = {
   editClubProfile,
   updateSecurityCode,
   updateCommitee,
-  addEvent,
-  getEvents
+
 }

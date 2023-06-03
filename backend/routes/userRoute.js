@@ -14,6 +14,7 @@ const upload=require('../middlewares/multer')
 const userController=require("../controllers/userController")
 const clubController=require("../controllers/clubController")
 const financeController=require("../controllers/financeController")
+const eventsController=require("../controllers/eventController")
 
 uRoute.post('/register',userController.userRegister)
 
@@ -67,9 +68,11 @@ uRoute.post('/update/finance/:id',financeController.updateFinance)
 
 uRoute.get('/club/finance/:id',financeController.getFinancialData)
 
-uRoute.post('/club/addEvent/:id',clubController.addEvent)
+uRoute.post('/club/addEvent/:id',eventsController.addEvent)
 
-uRoute.get('/club/events/:id',clubController.getEvents)
+uRoute.get('/club/events/:id',eventsController.getEvents)
+
+uRoute.post('/club/deleteEvent/:id',eventsController.deleteEvent)
 
 
 module.exports = uRoute;

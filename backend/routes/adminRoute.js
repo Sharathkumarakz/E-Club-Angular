@@ -36,6 +36,7 @@ aRoute.post('/user/unBlock/:id',adminController.unblockUser)
 aRoute.post('/user/block/:id',adminController.blockUser)
 
 
+aRoute.post('/logout',adminController.logOut)
 
 
 module.exports = aRoute;

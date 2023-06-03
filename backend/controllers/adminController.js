@@ -170,6 +170,18 @@ const blockUser=async (req,res,next)=>{
     }
 }
 
+const logOut = async (req, res, next) => {
+    try {
+        res.cookie("jwtAdmin", "", {
+            maxAge: 0
+        });
+        res.send({ message: "success" });
+    } catch (error) {
+        next(error);
+    }
+};
+
+
 module.exports = {
 
     adminlogin,
@@ -182,6 +194,7 @@ module.exports = {
     removeFromBlacklist,
     getUsers,
     blockUser,
-    unblockUser
+    unblockUser,
+    logOut
   }
   

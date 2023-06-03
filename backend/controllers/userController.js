@@ -50,6 +50,11 @@ const userLogin = async (req, res, next) => {
                 message: "Password is incorrect"
             });
         }
+        if(user.isBlocked===true){
+            return res.status(404).send({
+                message: "You are blocked"
+            });  
+        }
         const token = jwt.sign({ _id: user._id }, "TheSecretKey");
         res.cookie("jwt", token, {
             httpOnly: true,
@@ -125,6 +130,11 @@ const userAuth = async (req, res, next) => {
             });
         }
         const user = await User.findOne({ _id: claims._id });
+        if(user.isBlocked===true){
+            return res.status(404).send({
+                message: "You are blocked"
+            });  
+        }
         const { password, ...data } = await user.toJSON();
         res.send(data);
     } catch (err) {
